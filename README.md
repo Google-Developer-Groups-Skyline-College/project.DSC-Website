@@ -8,8 +8,6 @@ This is primarily a React project, built with Node.js and TailwindCSS, created f
 
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
 
 ---
 
