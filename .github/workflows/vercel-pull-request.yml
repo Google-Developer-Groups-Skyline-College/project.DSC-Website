@@ -1,5 +1,5 @@
 # vercel-pull-request.yml
-name: Create vercel preview URL on pull request
+name: Create Vercel preview URL on pull request
 on:
   pull_request:
     branches:
@@ -7,12 +7,15 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
     steps:
       - uses: actions/checkout@v4
       - name: Vercel Preview Build & Deploy
         uses: amondnet/vercel-action@v20
         id: vercel-deploy
-        continue-on-error: true
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}

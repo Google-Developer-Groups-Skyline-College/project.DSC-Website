@@ -1,5 +1,5 @@
 # vercel-merge.yml
-name: Deploy to vercel on merge/push
+name: Deploy to Vercel Production on merge/push
 on:
   push:
     branches:
@@ -7,11 +7,14 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
     steps:
       - uses: actions/checkout@v4
       - name: Vercel Build & Deploy
         uses: amondnet/vercel-action@v20
-        continue-on-error: true
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
