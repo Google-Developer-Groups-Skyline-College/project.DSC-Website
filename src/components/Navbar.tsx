@@ -13,7 +13,7 @@ const Navbar = () => {
           {/* Logo?ClubName? */}
           <div className="flex-shrink-0">
             <Link href="/" className="text-3xl font-bold text-gray-800">
-              LogoName
+              Made an OOPS
             </Link>
           </div>
 
