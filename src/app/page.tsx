@@ -1,3 +1,9 @@
+/*
+
+  This is the Home page component, i.e the code that represents the Home page.
+
+*/
+
 import Image from "next/image";
 
 export default function Home() {
