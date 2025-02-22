@@ -21,11 +21,11 @@ Before you begin, ensure you have Node.js installed on your machine.
 You can download it from the [official Node.js website](https://nodejs.org/en/download).<br>
 From there, get a prebuilt Node.Js for your system.<br>
 **Please make sure you are using Node.js version 22.14.0 (LTS).** This is the standardized version for this project, chosen for its stability and long-term support (LTS), which ensures reliability and compatibility throughout development.
-![Node Screenshot](docs\assets\nodeSS.png)<br>
+![Node Screenshot](docs/assets/nodeSS.png)<br>
 Then, just download the installer, and install Node.Js
-![Win Node Screenshot](docs\assets\winNodeSS.png)
+![Win Node Screenshot](docs/assets/winNodeSS.png)
 Or, for mac:
-![Mac Node Screenshot](docs\assets\macNodeSS.png)
+![Mac Node Screenshot](docs/assets/macNodeSS.png)
 
 Check if you have npm installed by running this on your command line:
 
