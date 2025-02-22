@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Make scrollbar invisible for the whole web app */
+::-webkit-scrollbar {
+  display: none;
+}
+* {
+  scrollbar-width: none;
+}
+/*Make scrollbar invisible for the whole web app */
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
