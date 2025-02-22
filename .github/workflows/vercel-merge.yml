@@ -1,5 +1,5 @@
 # vercel-merge.yml
-name: Deploy to Vercel Production on merge/push
+name: Vercel Production Deployment on Merge/Push
 on:
   push:
     branches:
@@ -7,10 +7,6 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      repository-projects: write
     steps:
       - uses: actions/checkout@v4
       - name: Vercel Build & Deploy
@@ -21,3 +17,4 @@ jobs:
           vercel-args: '--prod'
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
+          scope: ${{ secrets.ORG_ID }}

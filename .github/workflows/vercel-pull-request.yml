@@ -1,5 +1,5 @@
 # vercel-pull-request.yml
-name: Create Vercel preview URL on pull request
+name: Create Vercel Preview URL on Pull Request
 on:
   pull_request:
     branches:
@@ -7,10 +7,6 @@ on:
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-      repository-projects: write
     steps:
       - uses: actions/checkout@v4
       - name: Vercel Preview Build & Deploy
@@ -21,6 +17,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           vercel-org-id: ${{ secrets.ORG_ID }}
           vercel-project-id: ${{ secrets.PROJECT_ID }}
+          scope: ${{ secrets.ORG_ID }}
       - name: preview-url
         run: |
           echo ${{ steps.vercel-deploy.outputs.preview-url }}
