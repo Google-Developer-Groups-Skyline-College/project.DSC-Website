@@ -2,119 +2,164 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        opacity: { duration: 0.2 },
+        height: { duration: 0.3, delay: 0.1 },
+      },
+    },
+    open: {
+      opacity: 1,
+      height: "auto",
+      transition: {
+        opacity: { duration: 0.3 },
+        height: { duration: 0.3 },
+      },
+    },
+  };
+
+  const linkVariants = {
+    closed: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        opacity: { duration: 0.1 },
+        y: { duration: 0.1 },
+      },
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        opacity: { duration: 0.2, delay: 0.1 },
+        y: { duration: 0.2, delay: 0.1 },
+      },
+    },
+  };
+
+  const staggerChildren = {
+    open: {
+      transition: {
+        staggerChildren: 0.07,
+        delayChildren: 0.2,
+      },
+    },
+    closed: {
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1,
+      },
+    },
+  };
+
   return (
-    <nav className="bg-white">
-      <div className="max-w-full mx-auto px-6">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo?ClubName? */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="text-3xl font-bold text-gray-800">
-              Made an OOPS
-            </Link>
-          </div>
-
-          {/* Menu Button (Mobile) */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300 focus:outline-none"
-            >
-              {/* Hamburger Icon */}
-              <svg
-                className={`w-6 h-6 text-gray-800 transition-transform duration-300 ease-out ${
-                  isOpen ? "rotate-90" : "rotate-0"
-                }`}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                {isOpen ? (
-                  /* Close (X) Icon */
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  /* Three-Line Hamburger */
-                  <>
-                    <line x1="4" y1="6" x2="20" y2="6" strokeLinecap="round" />
-                    <line
-                      x1="4"
-                      y1="12"
-                      x2="20"
-                      y2="12"
-                      strokeLinecap="round"
-                    />
-                    <line
-                      x1="4"
-                      y1="18"
-                      x2="20"
-                      y2="18"
-                      strokeLinecap="round"
-                    />
-                  </>
-                )}
-              </svg>
-            </button>
-          </div>
-
-          {/* Normal Desktop Navigation Links */}
-          <div className="hidden md:block">
-            <div className="flex items-baseline space-x-5 text-gray-600 rounded-md text-lg font-medium">
-              <Link href="/" className="hover:text-gray-900 px-3 py-2">
-                Home
-              </Link>
-              <Link href="/about" className="hover:text-gray-900 px-3 py-2">
-                About
-              </Link>
-              <Link href="/teams" className="hover:text-gray-900 px-3 py-2">
-                Teams
-              </Link>
-              <Link href="/contact" className="hover:text-gray-900 px-3 py-2">
-                Contact
+    <div className="relative">
+      <nav className="bg-white fixed w-full z-10">
+        <div className="max-w-full mx-auto px-6">
+          <div className="flex justify-between items-center h-16">
+            {/* Logo/ClubName */}
+            <div className="flex-shrink-0">
+              <Link href="/" className="text-3xl font-bold text-gray-800">
+                Made an OOPS
               </Link>
             </div>
+
+            {/* Menu Button (Mobile) */}
+            <div className="lg:hidden">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300 focus:outline-none"
+              >
+                {/* Hamburger Icon */}
+                <motion.svg
+                  animate={isOpen ? "open" : "closed"}
+                  className="w-6 h-6 text-gray-800"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <motion.path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    variants={{
+                      closed: { d: "M4 6h16M4 12h16M4 18h16" },
+                      open: { d: "M6 18L18 6M6 6l12 12" },
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.svg>
+              </button>
+            </div>
+
+            {/* Normal Desktop Navigation Links */}
+            <div className="hidden lg:block">
+              <div className="flex items-baseline space-x-5 text-gray-600 rounded-md text-lg font-medium">
+                {[
+                  { href: "/", text: "Home" },
+                  { href: "/about", text: "About Us" },
+                  { href: "/projects", text: "Data Projects" },
+                  { href: "/teams", text: "Meet The Teams" },
+                  { href: "/join", text: "Join Us" },
+                ].map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="hover:text-gray-900 px-3 py-2 transition-all duration-200 hover:scale-110"
+                  >
+                    {link.text}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile Navigation Menu (Dropdown) */}
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  variants={menuVariants}
+                  className="lg:hidden fixed top-16 left-0 right-0 w-full z-10 bg-white bg-opacity-50 backdrop-blur-lg shadow-md overflow-hidden"
+                >
+                  <motion.div
+                    variants={staggerChildren}
+                    className="flex flex-col space-y-5 p-4"
+                  >
+                    {[
+                      { href: "/", text: "Home" },
+                      { href: "/about", text: "About Us" },
+                      { href: "/projects", text: "Data Projects" },
+                      { href: "/teams", text: "Meet The Teams" },
+                      { href: "/join", text: "Join Us" },
+                    ].map((link) => (
+                      <motion.div key={link.href} variants={linkVariants}>
+                        <Link
+                          href={link.href}
+                          className="block text-gray-800 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 active:bg-white"
+                        >
+                          {link.text}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
-
-        {/* Mobile Navigation Menu (Dropdown) */}
-        {isOpen && (
-          <div className="md:hidden absolute top-16 left-0 right-0 w-full h-full z-10 flex flex-col space-y-5 bg-white p-4 shadow-md ">
-            <Link
-              href="/"
-              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Home
-            </Link>
-            <Link
-              href="/about"
-              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              About
-            </Link>
-            <Link
-              href="/teams"
-              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Teams
-            </Link>
-            <Link
-              href="/contact"
-              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Contact
-            </Link>
-          </div>
-        )}
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 };
 

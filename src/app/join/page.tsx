@@ -19,7 +19,7 @@ export default function Page() {
       <Navbar />
       <HorizontalProgressBar progress={smoothProgress} />
       <Section title="Welcome" background="primary">
-        <p className="text-xl">This is the about page.</p>
+        <p className="text-xl">This is the join us page.</p>
       </Section>
     </main>
   );
