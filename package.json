@@ -9,7 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+<<<<<<< HEAD
     "framer-motion": "^12.4.7",
+=======
+    "@vercel/analytics": "^1.5.0",
+>>>>>>> 11a55becfcb4275dcc1f51026a0beea3f08eb7a6
     "next": "15.1.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

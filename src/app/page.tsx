@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 
 import { main } from "framer-motion/client";
@@ -6,6 +7,15 @@ import { useScroll, useSpring } from "framer-motion";
 import { Section } from "@/components/ui/section";
 import { HorizontalProgressBar } from "@/components/HorizontalProgressBar";
 import Navbar from "@/components/Navbar";
+=======
+/*
+
+  This is the Home page component, i.e the code that represents the Home page.
+
+*/
+
+import Image from "next/image";
+>>>>>>> 11a55becfcb4275dcc1f51026a0beea3f08eb7a6
 
 export default function Home() {
   const { scrollYProgress } = useScroll();
