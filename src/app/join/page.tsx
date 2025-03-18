@@ -1,9 +1,11 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import { HorizontalProgressBar } from "@/components/HorizontalProgressBar";
 import { useScroll, useSpring } from "framer-motion";
-import { Section } from "@/components/ui/section";
+
+import Hero from "@/components/joinUs/HeroSection";
+import JoinUsInfo from "@/components/joinUs/JoinUsInfo";
+import JoinUsFooter from "@/components/joinUs/JoinUsFooter";
 
 export default function Page() {
   const { scrollYProgress } = useScroll();
@@ -16,11 +18,10 @@ export default function Page() {
 
   return (
     <main>
-      <Navbar />
-      <HorizontalProgressBar progress={smoothProgress} />
-      <Section title="Welcome" background="primary">
-        <p className="text-xl">This is the join us page.</p>
-      </Section>
+      <Navbar progress={smoothProgress} />
+      <Hero />
+      <JoinUsInfo />
+      <JoinUsFooter />
     </main>
   );
 }

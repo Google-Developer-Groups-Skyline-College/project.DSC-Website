@@ -1,11 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import Image from "next/image";
 
-const Navbar = () => {
+import { Text } from "./ui/Text";
+import { ThemeToggle } from "./theme/ThemeToggle";
+
+interface NavbarProps {
+  progress?: MotionValue<number>;
+}
+
+const Navbar = ({ progress }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  // Only render theme-specific elements after component mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const menuVariants = {
     closed: {
@@ -61,27 +80,41 @@ const Navbar = () => {
   };
 
   return (
-    <div className="relative">
-      <nav className="bg-white fixed w-full z-10">
-        <div className="max-w-full mx-auto px-6">
-          <div className="flex justify-between items-center h-16">
+    <div className="relative h-16">
+      <nav className="bg-background fixed w-full z-10 border-b border-border transition-colors duration-300 h-16">
+        <div className="max-w-full mx-auto px-6 h-full">
+          <div className="flex justify-between items-center h-full">
             {/* Logo/ClubName */}
             <div className="flex-shrink-0">
-              <Link href="/" className="text-3xl font-bold text-gray-800">
-                Made an OOPS
+              <Link href="/" className="flex ">
+                <Image
+                  src="/logo.svg"
+                  alt="DSC Logo"
+                  width={60}
+                  height={60}
+                  className="mr-2"
+                />
+                <span className="hidden md:inline-block">
+                  <Text size="h4" font="blanka" className="py-2.5">
+                    Data Science Club
+                  </Text>
+                </span>
               </Link>
             </div>
 
             {/* Menu Button (Mobile) */}
-            <div className="lg:hidden">
+            <div className="lg:hidden flex items-center space-x-3">
+              {/* Theme Toggle Button (Mobile) */}
+              {mounted && <ThemeToggle />}
+              {/* Hamburger Button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300 focus:outline-none"
+                className="w-10 h-10 flex items-center justify-center rounded-md bg-muted hover:bg-accent focus:outline-none transition-colors duration-300"
               >
                 {/* Hamburger Icon */}
                 <motion.svg
                   animate={isOpen ? "open" : "closed"}
-                  className="w-6 h-6 text-gray-800"
+                  className="w-6 h-6 text-foreground"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="none"
@@ -102,23 +135,35 @@ const Navbar = () => {
             </div>
 
             {/* Normal Desktop Navigation Links */}
-            <div className="hidden lg:block">
-              <div className="flex items-baseline space-x-5 text-gray-600 rounded-md text-lg font-medium">
+            <div className="hidden lg:flex items-center">
+              <div className="flex items-baseline space-x-5 text-foreground rounded-md text-lg font-medium transition-colors duration-100">
                 {[
                   { href: "/", text: "Home" },
                   { href: "/about", text: "About Us" },
                   { href: "/projects", text: "Data Projects" },
-                  { href: "/teams", text: "Meet The Teams" },
                   { href: "/join", text: "Join Us" },
                 ].map((link) => (
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="hover:text-gray-900 px-3 py-2 transition-all duration-200 hover:scale-110"
+                    className="px-3 py-2 hover:scale-110"
+                    style={{
+                      transition: "transform 200ms ease, color 50ms ease",
+                    }}
                   >
-                    {link.text}
+                    <Text
+                      font="pippin"
+                      size="h5"
+                      weight="semibold"
+                      className="hover:text-primary transition-colors duration-50"
+                    >
+                      {link.text}
+                    </Text>
                   </Link>
                 ))}
+
+                {/* Theme Toggle Button (Desktop) - Only render after mounting */}
+                {mounted && <ThemeToggle />}
               </div>
             </div>
 
@@ -130,7 +175,7 @@ const Navbar = () => {
                   animate="open"
                   exit="closed"
                   variants={menuVariants}
-                  className="lg:hidden fixed top-16 left-0 right-0 w-full z-10 bg-white bg-opacity-50 backdrop-blur-lg shadow-md overflow-hidden"
+                  className="lg:hidden fixed top-16 left-0 right-0 w-full z-10 bg-background bg-opacity-50 backdrop-blur-lg shadow-md overflow-hidden transition-colors duration-300"
                 >
                   <motion.div
                     variants={staggerChildren}
@@ -140,13 +185,12 @@ const Navbar = () => {
                       { href: "/", text: "Home" },
                       { href: "/about", text: "About Us" },
                       { href: "/projects", text: "Data Projects" },
-                      { href: "/teams", text: "Meet The Teams" },
                       { href: "/join", text: "Join Us" },
                     ].map((link) => (
                       <motion.div key={link.href} variants={linkVariants}>
                         <Link
                           href={link.href}
-                          className="block text-gray-800 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 active:bg-white"
+                          className="block text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 active:bg-accent"
                         >
                           {link.text}
                         </Link>
@@ -158,6 +202,31 @@ const Navbar = () => {
             </AnimatePresence>
           </div>
         </div>
+
+        {/* Integrated Progress Bar - Only render if progress is provided */}
+        {progress && (
+          <motion.div className="absolute bottom-0 left-0 w-full h-1 bg-gray-800">
+            <motion.div
+              className="h-full bg-primary relative origin-left"
+              style={{ scaleX: progress }}
+            >
+              <motion.div
+                className="absolute right-0 top-0 h-full w-8 bg-blue-400"
+                style={{
+                  filter: "blur(8px)",
+                  opacity: useTransform(progress, [0, 0.9, 1], [0.5, 0.8, 1]),
+                }}
+              />
+              <motion.div
+                className="absolute right-0 top-0 h-full w-4 bg-blue-300"
+                style={{
+                  filter: "blur(12px)",
+                  opacity: useTransform(progress, [0, 0.9, 1], [0.3, 0.6, 1]),
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
       </nav>
     </div>
   );

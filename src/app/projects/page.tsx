@@ -1,9 +1,8 @@
 "use client";
 
 import Navbar from "@/components/Navbar";
-import { HorizontalProgressBar } from "@/components/HorizontalProgressBar";
 import { useScroll, useSpring } from "framer-motion";
-import { Section } from "@/components/ui/section";
+import { Section } from "@/components/ui/Section";
 
 export default function Page() {
   const { scrollYProgress } = useScroll();
@@ -16,8 +15,7 @@ export default function Page() {
 
   return (
     <main>
-      <Navbar />
-      <HorizontalProgressBar progress={smoothProgress} />
+      <Navbar progress={smoothProgress} />
       <Section title="Welcome" background="primary">
         <p className="text-xl">This is the projects page.</p>
       </Section>

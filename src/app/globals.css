@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Fonts For Use */
+@import url("https://api.fontshare.com/v2/css?f[]=hind@300,400,500,600,700,1&f[]=poppins@100,101,200,201,300,301,400,401,500,501,600,601,700,701,800,801,900,901,1,2&display=swap");
+
+@font-face {
+  font-family: "Blanka";
+  src: url("/fonts/Blanka-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+/* Fonts For Use */
+
 /* Make scrollbar invisible for the whole web app */
 ::-webkit-scrollbar {
   display: none;
@@ -12,19 +24,36 @@
 /*Make scrollbar invisible for the whole web app */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+  /* Light theme default variables */
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(83 15% 31%);
+  --primary: hsl(83 15% 59%);
+  --secondary: hsl(83 15% 73%);
+  --muted: hsl(81 15% 92%);
+  --accent: hsl(81 15% 92%);
+  --border: hsl(83 15% 73%);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --background: hsl(83 50% 14%);
+  --foreground: hsl(81 15% 92%);
+  --primary: hsl(83 15% 59%);
+  --secondary: hsl(83 35% 26%);
+  --muted: hsl(83 35% 26%);
+  --accent: hsl(83 35% 26%);
+  --border: hsl(83 35% 26%);
 }
 
 body {
+  background-color: var(--background);
   color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.theme-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
 }
