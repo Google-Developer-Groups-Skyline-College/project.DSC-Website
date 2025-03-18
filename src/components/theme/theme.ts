@@ -1,6 +1,6 @@
 export const theme = {
   light: {
-    background: "hsl(0 0% 100%)",
+    background: "hsl(105 19% 85%)",
     foreground: "hsl(83 15% 31%)",
     primary: "hsl(83 15% 59%)",
     secondary: "hsl(83 15% 73%)",

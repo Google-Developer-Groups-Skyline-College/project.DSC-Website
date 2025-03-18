@@ -33,7 +33,7 @@ const JoinUsFooter = () => {
             </div>
 
             {/* Social */}
-            <div className="flex flex-col md:items-center md:border-x border-white/20 md:px-8">
+            <div className="flex flex-col md:items-center md:border-x border-primary md:px-8">
               <p className="text-xs tracking-widest mb-8">CONNECT</p>
               <div className="space-y-6">
                 <div className="flex items-center space-x-4 group">
@@ -76,7 +76,7 @@ const JoinUsFooter = () => {
               {/* Data signature */}
               <div className="mt-auto pt-12 opacity-50 text-xs">
                 <div className="flex items-center space-x-2">
-                  <div className="h-px w-12 bg-white"></div>
+                  <div className="h-px w-12 bg-primary"></div>
                   <code className="tracking-wide">#data_science</code>
                 </div>
               </div>

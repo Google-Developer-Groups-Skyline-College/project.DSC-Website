@@ -20,7 +20,7 @@ export function LettersPullUp({
       y: 0,
       opacity: 1,
       transition: {
-        delay: i * 0.1,
+        delay: 1.8 + i * 0.1,
       },
     }),
   };

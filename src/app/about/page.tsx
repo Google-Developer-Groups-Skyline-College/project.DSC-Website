@@ -1,7 +1,7 @@
 "use client";
 
 import { useScroll, useSpring } from "framer-motion";
-import { Section } from "@/components/ui/Section";
+import { SectionWithBlocks } from "@/components/about/SectionBlocks";
 import Navbar from "@/components/Navbar";
 
 export default function Page() {
@@ -16,9 +16,9 @@ export default function Page() {
   return (
     <main>
       <Navbar progress={smoothProgress} />
-      <Section title="Welcome" background="primary">
-        <p className="text-xl">This is the about page.</p>
-      </Section>
+      <SectionWithBlocks fullHeight={true}>
+        <div></div>
+      </SectionWithBlocks>
     </main>
   );
 }

@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { cn } from "@/app/lib/utils";
 
 import { Section } from "../ui/Section";
-import { motion, useInView } from "framer-motion";
+import { delay, motion, useInView } from "framer-motion";
 import { GitBranch, Database, Network } from "lucide-react";
 import { LettersPullUp } from "../textAnimations/LettersPullUp";
 
@@ -29,13 +29,18 @@ export default function Hero() {
       opacity: 1,
       transition: {
         staggerChildren: 0.2,
+        delayChildren: 2, // Use delayChildren instead of delay
       },
     },
   };
 
   const item = {
     hidden: { opacity: 0, y: 20 },
-    show: { opacity: 0.75, y: 0, transition: { duration: 0.5 } },
+    show: {
+      opacity: 0.75,
+      y: 0,
+      transition: { duration: 0.5 }, // Remove the delay here
+    },
   };
 
   return (
@@ -88,11 +93,10 @@ export default function Hero() {
                 initial={{ opacity: 0 }}
                 animate={isInView ? { opacity: 1 } : {}}
                 transition={{ duration: 1 }}
-                className="text-xl md:text-4xl mr-4 font-light self-start mt-4 "
               >
                 <RotateWords
                   text="Data"
-                  words={["Science", "Analytics", "Engineering"]}
+                  words={["Science", "Analysis", "Engineer"]}
                 />
               </motion.span>
 
@@ -159,7 +163,7 @@ export default function Hero() {
           className="text-xs tracking-widest mb-2"
           initial={{ opacity: 0, y: -10 }}
           animate={isScrollIndicatorInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.8 }}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 2.5 }}
         >
           SCROLL
         </motion.span>
@@ -167,7 +171,7 @@ export default function Hero() {
           className="h-16 w-px bg-foreground "
           initial={{ scaleY: 0, opacity: 0 }}
           animate={isScrollIndicatorInView ? { scaleY: 1, opacity: 1 } : {}}
-          transition={{ duration: 0.6, ease: "easeOut", delay: 0.5 }}
+          transition={{ duration: 0.6, ease: "easeOut", delay: 2.2 }}
           style={{ transformOrigin: "top" }}
         ></motion.div>
       </div>
