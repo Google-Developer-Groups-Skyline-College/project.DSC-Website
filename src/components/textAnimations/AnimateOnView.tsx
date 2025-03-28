@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, HTMLMotionProps } from "framer-motion";
 
-interface AnimateOnViewProps {
+interface AnimateOnViewProps extends HTMLMotionProps<"div"> {
   children: ReactNode;
   delay?: number;
   duration?: number;
@@ -9,7 +9,6 @@ interface AnimateOnViewProps {
   className?: string;
   once?: boolean;
   amount?: number;
-  [key: string]: any;
 }
 
 const AnimateOnView: React.FC<AnimateOnViewProps> = ({

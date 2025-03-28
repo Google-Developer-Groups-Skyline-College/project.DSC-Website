@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./not-found.module.css";
-import { useTheme } from "next-themes"; // Make sure to install this package
+import { useTheme } from "next-themes";
 
 export default function NotFound() {
   const [countdown, setCountdown] = useState(10);
-  const { theme } = useTheme();
 
   useEffect(() => {
     // Countdown timer to redirect to homepage

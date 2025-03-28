@@ -79,6 +79,13 @@ const Navbar = ({ progress }: NavbarProps) => {
     },
   };
 
+  let opacity1, opacity2;
+
+  if (progress) {
+    opacity1 = useTransform(progress, [0, 0.9, 1], [0.5, 0.8, 1]);
+    opacity2 = useTransform(progress, [0, 0.9, 1], [0.3, 0.6, 1]);
+  }
+
   return (
     <div className="relative h-16">
       <nav className="bg-background fixed w-full z-10 border-border transition-colors duration-300 h-16">
@@ -225,14 +232,14 @@ const Navbar = ({ progress }: NavbarProps) => {
                 className="absolute right-0 top-0 h-full w-8 bg-secondary"
                 style={{
                   filter: "blur(8px)",
-                  opacity: useTransform(progress, [0, 0.9, 1], [0.5, 0.8, 1]),
+                  opacity: opacity1,
                 }}
               />
               <motion.div
                 className="absolute right-0 top-0 h-full w-4 bg-secondary"
                 style={{
                   filter: "blur(12px)",
-                  opacity: useTransform(progress, [0, 0.9, 1], [0.3, 0.6, 1]),
+                  opacity: opacity2,
                 }}
               />
             </motion.div>

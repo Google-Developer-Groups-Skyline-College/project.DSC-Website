@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { cn } from "@/app/lib/utils";
 
 import { Section } from "../ui/Section";
-import { delay, motion, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { GitBranch, Database, Network } from "lucide-react";
 import { LettersPullUp } from "../textAnimations/LettersPullUp";
 
