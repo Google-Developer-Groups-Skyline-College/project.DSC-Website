@@ -1,107 +1,94 @@
-/*
+"use client";
 
-  This is the Home page component, i.e the code that represents the Home page.
+import { useScroll, useSpring } from "framer-motion";
 
-*/
-
-import Image from "next/image";
+import { Text } from "@/components/ui/Text";
+import { Section } from "@/components/ui/Section";
+import Navbar from "@/components/Navbar";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { scrollYProgress } = useScroll();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  return (
+    <main>
+      <Navbar progress={smoothProgress} />
+      <Section fullHeight background="background">
+        <div className="flex flex-col items-center justify-center h-full text-center">
+          {/* Hero Title with Blanka Font */}
+          <Text size="h1" font="title" className="mb-6 tracking-wider">
+            DATA SCIENCE CLUB
+          </Text>
+
+          {/* Subtitle with Primary Font (Poppins) */}
+          <Text
+            size="lead"
+            font="body"
+            weight="medium"
+            className="mb-8 max-w-2xl"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            Empowering students to explore the world of data science and machine
+            learning through collaborative projects and learning opportunities.
+          </Text>
+
+          {/* Regular paragraph with Secondary Font (Hind) */}
+          <Text font="body" className="max-w-xl mb-8">
+            Join our community of data enthusiasts and build practical skills in
+            data analysis, visualization, and machine learning applications.
+          </Text>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </Section>
+
+      <Section background="background" title="Our Mission">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            {/* Section Header with Title Font */}
+            <Text size="h3" font="heading" className="mb-4">
+              WHAT WE DO
+            </Text>
+
+            {/* Content with Primary Font */}
+            <Text size="lead" className="mb-6">
+              We bridge the gap between classroom theory and real-world data
+              science applications.
+            </Text>
+
+            <Text font="body">
+              Through workshops, hackathons, and collaborative projects, we
+              provide hands-on experience with the latest tools and techniques
+              in data science and AI.
+            </Text>
+          </div>
+
+          <div>
+            {/* Section Header with Title Font */}
+            <Text size="h3" font="heading" className="mb-4">
+              OUR VISION
+            </Text>
+
+            {/* Content with Primary Font */}
+            <Text size="lead" className="mb-6">
+              Creating a community of data-driven problem solvers ready to
+              tackle real-world challenges.
+            </Text>
+
+            <Text font="body">
+              We aim to equip students with the skills and knowledge needed to
+              succeed in the rapidly evolving fields of data science, machine
+              learning, and artificial intelligence.
+            </Text>
+          </div>
+        </div>
+      </Section>
+      {/*  For a section with primary colors */}
+      <Section title="Join Our Team" background="primary" fullHeight>
+        <div>Sign up form</div>
+      </Section>
+    </main>
   );
 }

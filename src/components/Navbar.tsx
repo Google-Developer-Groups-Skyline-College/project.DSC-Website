@@ -1,120 +1,252 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import {
+  motion,
+  AnimatePresence,
+  MotionValue,
+  useTransform,
+  useMotionValue,
+} from "framer-motion";
+import Image from "next/image";
 
-const Navbar = () => {
+import { Text } from "./ui/Text";
+import { ThemeToggle } from "./theme/ThemeToggle";
+
+interface NavbarProps {
+  progress?: MotionValue<number>;
+}
+
+const Navbar = ({ progress }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  const fallbackProgress = useMotionValue(0);
+  const actualProgress = progress || fallbackProgress;
+
+  const opacity1 = useTransform(actualProgress, [0, 0.9, 1], [0.5, 0.8, 1]);
+  const opacity2 = useTransform(actualProgress, [0, 0.9, 1], [0.3, 0.6, 1]);
+
+  // Only render theme-specific elements after component mount
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const menuVariants = {
+    closed: {
+      opacity: 0,
+      height: 0,
+      transition: {
+        opacity: { duration: 0.2 },
+        height: { duration: 0.3, delay: 0.1 },
+      },
+    },
+    open: {
+      opacity: 1,
+      height: "auto",
+      transition: {
+        opacity: { duration: 0.3 },
+        height: { duration: 0.3 },
+      },
+    },
+  };
+
+  const linkVariants = {
+    closed: {
+      opacity: 0,
+      y: -10,
+      transition: {
+        opacity: { duration: 0.1 },
+        y: { duration: 0.1 },
+      },
+    },
+    open: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        opacity: { duration: 0.2, delay: 0.1 },
+        y: { duration: 0.2, delay: 0.1 },
+      },
+    },
+  };
+
+  const staggerChildren = {
+    open: {
+      transition: {
+        staggerChildren: 0.07,
+        delayChildren: 0.2,
+      },
+    },
+    closed: {
+      transition: {
+        staggerChildren: 0.05,
+        staggerDirection: -1,
+      },
+    },
+  };
 
   return (
-    <nav className="bg-white">
-      <div className="max-w-full mx-auto px-6">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo?ClubName? */}
-          <div className="flex-shrink-0">
-            <Link href="/" className="text-3xl font-bold text-gray-800">
-              Made an OOPS
-            </Link>
-          </div>
-
-          {/* Menu Button (Mobile) */}
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="w-10 h-10 flex items-center justify-center rounded-md bg-gray-200 hover:bg-gray-300 focus:outline-none"
-            >
-              {/* Hamburger Icon */}
-              <svg
-                className={`w-6 h-6 text-gray-800 transition-transform duration-300 ease-out ${
-                  isOpen ? "rotate-90" : "rotate-0"
-                }`}
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                {isOpen ? (
-                  /* Close (X) Icon */
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  /* Three-Line Hamburger */
-                  <>
-                    <line x1="4" y1="6" x2="20" y2="6" strokeLinecap="round" />
-                    <line
-                      x1="4"
-                      y1="12"
-                      x2="20"
-                      y2="12"
-                      strokeLinecap="round"
-                    />
-                    <line
-                      x1="4"
-                      y1="18"
-                      x2="20"
-                      y2="18"
-                      strokeLinecap="round"
-                    />
-                  </>
-                )}
-              </svg>
-            </button>
-          </div>
-
-          {/* Normal Desktop Navigation Links */}
-          <div className="hidden md:block">
-            <div className="flex items-baseline space-x-5 text-gray-600 rounded-md text-lg font-medium">
-              <Link href="/" className="hover:text-gray-900 px-3 py-2">
-                Home
-              </Link>
-              <Link href="/about" className="hover:text-gray-900 px-3 py-2">
-                About
-              </Link>
-              <Link href="/teams" className="hover:text-gray-900 px-3 py-2">
-                Teams
-              </Link>
-              <Link href="/contact" className="hover:text-gray-900 px-3 py-2">
-                Contact
+    <div className="relative h-16">
+      <nav className="bg-background fixed w-full z-10 border-border transition-colors duration-300 h-16">
+        <div className="max-w-full mx-auto px-6 h-full">
+          <div className="flex justify-between items-center h-full">
+            {/* Logo/ClubName */}
+            <div className="flex-shrink-0">
+              <Link href="/" className="flex ">
+                <Image
+                  src="/logo.svg"
+                  alt="DSC Logo"
+                  width={60}
+                  height={60}
+                  style={{ height: "auto" }}
+                  className="mr-2"
+                />
+                <span className="hidden md:inline-block">
+                  <Text
+                    size="h4"
+                    font="title"
+                    className="py-2.5 transform transition-all duration-200 ease-out hover:text-primary hover:scale-105"
+                    style={{
+                      transition:
+                        "transform 200ms ease-out, color 50ms ease-out",
+                    }}
+                  >
+                    Data Science Club
+                  </Text>
+                </span>
               </Link>
             </div>
+
+            {/* Menu Button (Mobile) */}
+            <div className="lg:hidden flex items-center space-x-3">
+              {/* Theme Toggle Button (Mobile) */}
+              {mounted && <ThemeToggle />}
+              {/* Hamburger Button */}
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="w-10 h-10 flex items-center justify-center rounded-md bg-secondary hover:bg-accent focus:outline-none transition-colors duration-300"
+              >
+                {/* Hamburger Icon */}
+                <motion.svg
+                  animate={isOpen ? "open" : "closed"}
+                  className="w-6 h-6 text-foreground"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <motion.path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    variants={{
+                      closed: { d: "M4 6h16M4 12h16M4 18h16" },
+                      open: { d: "M6 18L18 6M6 6l12 12" },
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </motion.svg>
+              </button>
+            </div>
+
+            {/* Normal Desktop Navigation Links */}
+            <div className="hidden lg:flex items-center">
+              <div className="flex items-baseline space-x-5 text-foreground rounded-md text-lg font-medium transition-colors duration-100 font-[Blanka] tracking-widest">
+                {[
+                  { href: "/", text: "Home" },
+                  { href: "/about", text: "About Us" },
+                  { href: "/projects", text: "Data Projects" },
+                  { href: "/meet", text: "Meet The Team" },
+                  { href: "/join", text: "Join Us" },
+                ].map((link) => (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="px-3 py-2 hover:scale-110"
+                    style={{
+                      transition: "transform 200ms ease, color 50ms ease",
+                    }}
+                  >
+                    <Text
+                      font="title"
+                      size="h5"
+                      weight="semibold"
+                      className="hover:text-primary transition-colors duration-50"
+                    >
+                      {link.text}
+                    </Text>
+                  </Link>
+                ))}
+
+                {/* Theme Toggle Button (Desktop) - Only render after mounting */}
+                {mounted && <ThemeToggle />}
+              </div>
+            </div>
+
+            {/* Mobile Navigation Menu (Dropdown) */}
+            <AnimatePresence>
+              {isOpen && (
+                <motion.div
+                  initial="closed"
+                  animate="open"
+                  exit="closed"
+                  variants={menuVariants}
+                  className="lg:hidden fixed top-16 left-0 right-0 w-full z-10 bg-background bg-opacity-50 backdrop-blur-lg shadow-md overflow-hidden transition-colors duration-300 font-[Blanka] tracking-widest"
+                >
+                  <motion.div
+                    variants={staggerChildren}
+                    className="flex flex-col space-y-5 p-4"
+                  >
+                    {[
+                      { href: "/", text: "Home" },
+                      { href: "/about", text: "About Us" },
+                      { href: "/projects", text: "Data Projects" },
+                      { href: "/meet", text: "Meet The Team" },
+                      { href: "/join", text: "Join Us" },
+                    ].map((link) => (
+                      <motion.div key={link.href} variants={linkVariants}>
+                        <Link
+                          href={link.href}
+                          className="block text-text hover:text-text px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 active:bg-accent"
+                        >
+                          {link.text}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
 
-        {/* Mobile Navigation Menu (Dropdown) */}
-        {isOpen && (
-          <div className="md:hidden absolute top-16 left-0 right-0 w-full h-full z-10 flex flex-col space-y-5 bg-white p-4 shadow-md ">
-            <Link
-              href="/"
-              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
+        {/* Integrated Progress Bar - Only render if progress is provided */}
+        {progress && (
+          <motion.div className="absolute bottom-0 left-0 w-full h-1 bg-background">
+            <motion.div
+              className="h-full bg-primary relative origin-left"
+              style={{ scaleX: progress }}
             >
-              Home
-            </Link>
-            <Link
-              href="/about"
-              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              About
-            </Link>
-            <Link
-              href="/teams"
-              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Teams
-            </Link>
-            <Link
-              href="/contact"
-              className="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium"
-            >
-              Contact
-            </Link>
-          </div>
+              <motion.div
+                className="absolute right-0 top-0 h-full w-8 bg-secondary"
+                style={{
+                  filter: "blur(8px)",
+                  opacity: opacity1,
+                }}
+              />
+              <motion.div
+                className="absolute right-0 top-0 h-full w-4 bg-secondary"
+                style={{
+                  filter: "blur(12px)",
+                  opacity: opacity2,
+                }}
+              />
+            </motion.div>
+          </motion.div>
         )}
-      </div>
-    </nav>
+      </nav>
+    </div>
   );
 };
 
