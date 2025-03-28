@@ -17,7 +17,4 @@ jobs:
           vercel-args: "--prod"
           vercel-org-id: ${{ secrets.ORG_ID}}
           vercel-project-id: ${{ secrets.PROJECT_ID}}
-<<<<<<< HEAD
-=======
           scope: ${{ secrets.ORG_ID }}
->>>>>>> 11a55becfcb4275dcc1f51026a0beea3f08eb7a6
