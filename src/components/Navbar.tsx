@@ -5,8 +5,9 @@ import Link from "next/link";
 import {
   motion,
   AnimatePresence,
+  MotionValue,
   useTransform,
-  type MotionValue,
+  useMotionValue,
 } from "framer-motion";
 import Image from "next/image";
 
@@ -20,6 +21,12 @@ interface NavbarProps {
 const Navbar = ({ progress }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+
+  const fallbackProgress = useMotionValue(0);
+  const actualProgress = progress || fallbackProgress;
+
+  const opacity1 = useTransform(actualProgress, [0, 0.9, 1], [0.5, 0.8, 1]);
+  const opacity2 = useTransform(actualProgress, [0, 0.9, 1], [0.3, 0.6, 1]);
 
   // Only render theme-specific elements after component mount
   useEffect(() => {
@@ -78,13 +85,6 @@ const Navbar = ({ progress }: NavbarProps) => {
       },
     },
   };
-
-  let opacity1, opacity2;
-
-  if (progress) {
-    opacity1 = useTransform(progress, [0, 0.9, 1], [0.5, 0.8, 1]);
-    opacity2 = useTransform(progress, [0, 0.9, 1], [0.3, 0.6, 1]);
-  }
 
   return (
     <div className="relative h-16">

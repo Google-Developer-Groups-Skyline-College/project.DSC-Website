@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import styles from "./not-found.module.css";
-import { useTheme } from "next-themes";
 
 export default function NotFound() {
   const [countdown, setCountdown] = useState(10);
