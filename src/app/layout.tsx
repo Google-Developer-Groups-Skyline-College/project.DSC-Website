@@ -1,9 +1,13 @@
+"use client";
+
 import localFont from "next/font/local";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/theme/ThemeContext";
 import PageTransition from "@/components/PageTransition";
 import StairTransition from "@/components/StairTransition";
+
+import { usePathname } from "next/navigation";
 
 // Define fonts
 const blanka = localFont({
@@ -17,6 +21,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isProjectRoute = pathname?.includes("/projects/") || false;
   return (
     <html lang="en" className={blanka.variable}>
       <head>
@@ -27,8 +33,16 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
-          <StairTransition />
-          <PageTransition>{children}</PageTransition>
+          {/* Don't include transitions for project routes */}
+          {!isProjectRoute ? (
+            <>
+              <StairTransition />
+              <PageTransition>{children}</PageTransition>
+            </>
+          ) : (
+            // Render children directly without transitions for project routes
+            children
+          )}
         </ThemeProvider>
       </body>
     </html>

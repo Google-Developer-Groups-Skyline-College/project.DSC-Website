@@ -4,7 +4,7 @@ import { cn } from "@/app/lib/utils";
 interface SectionProps extends HTMLAttributes<HTMLElement> {
   title?: string;
   children: ReactNode;
-  background?: "default" | "muted" | "primary" | "secondary" | "foreground";
+  background?: "background" | "primary" | "secondary" | "accent";
   fullHeight?: boolean;
 }
 
@@ -12,17 +12,16 @@ export function Section({
   title,
   children,
   className,
-  background = "default",
+  background = "primary",
   fullHeight = false,
   ...props
 }: SectionProps) {
   // Theme-aware background classes
   const bgClasses = {
-    default: "bg-background text-foreground",
-    muted: "bg-muted text-foreground",
-    primary: "bg-primary text-foreground",
-    secondary: "bg-secondary text-foreground",
-    foreground: "bg-foreground text-secondary",
+    background: "bg-background text-text",
+    primary: "bg-primary text-text",
+    secondary: "bg-secondary text-text",
+    accent: "bg-accent text-text",
   };
 
   return (

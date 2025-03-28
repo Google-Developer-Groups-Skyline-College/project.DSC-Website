@@ -10,19 +10,29 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        text: "var(--text)",
         background: "var(--background)",
-        foreground: "var(--foreground)",
         primary: "var(--primary)",
         secondary: "var(--secondary)",
-        muted: "var(--muted)",
         accent: "var(--accent)",
-        border: "var(--border)",
+      },
+      fontSize: {
+        sm: "0.750rem",
+        base: "1rem",
+        xl: "1.333rem",
+        "2xl": "1.777rem",
+        "3xl": "2.369rem",
+        "4xl": "3.158rem",
+        "5xl": "4.210rem",
       },
       fontFamily: {
-        title: ["var(--font-title)"],
-        primary: ["var(--font-primary)"],
-        secondary: ["var(--font-secondary)"],
-        mono: ["var(--font-mono)"],
+        title: ["Blanka", "sans-serif"],
+        heading: ["Poppins", "sans-serif"],
+        body: ["DM Sans", "sans-serif"],
+      },
+      fontWeight: {
+        normal: "400",
+        bold: "700",
       },
     },
   },

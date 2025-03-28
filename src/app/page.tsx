@@ -18,17 +18,17 @@ export default function Home() {
   return (
     <main>
       <Navbar progress={smoothProgress} />
-      <Section fullHeight background="muted">
+      <Section fullHeight background="background">
         <div className="flex flex-col items-center justify-center h-full text-center">
           {/* Hero Title with Blanka Font */}
-          <Text size="h1" font="blanka" className="mb-6 tracking-wider">
+          <Text size="h1" font="title" className="mb-6 tracking-wider">
             DATA SCIENCE CLUB
           </Text>
 
           {/* Subtitle with Primary Font (Poppins) */}
           <Text
             size="lead"
-            font="pippin"
+            font="body"
             weight="medium"
             className="mb-8 max-w-2xl"
           >
@@ -37,18 +37,18 @@ export default function Home() {
           </Text>
 
           {/* Regular paragraph with Secondary Font (Hind) */}
-          <Text font="hind" className="max-w-xl mb-8">
+          <Text font="body" className="max-w-xl mb-8">
             Join our community of data enthusiasts and build practical skills in
             data analysis, visualization, and machine learning applications.
           </Text>
         </div>
       </Section>
 
-      <Section background="muted" title="Our Mission">
+      <Section background="background" title="Our Mission">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
             {/* Section Header with Title Font */}
-            <Text size="h3" font="blanka" className="mb-4">
+            <Text size="h3" font="heading" className="mb-4">
               WHAT WE DO
             </Text>
 
@@ -58,7 +58,7 @@ export default function Home() {
               science applications.
             </Text>
 
-            <Text font="hind">
+            <Text font="body">
               Through workshops, hackathons, and collaborative projects, we
               provide hands-on experience with the latest tools and techniques
               in data science and AI.
@@ -67,7 +67,7 @@ export default function Home() {
 
           <div>
             {/* Section Header with Title Font */}
-            <Text size="h3" font="blanka" className="mb-4">
+            <Text size="h3" font="heading" className="mb-4">
               OUR VISION
             </Text>
 
@@ -77,7 +77,7 @@ export default function Home() {
               tackle real-world challenges.
             </Text>
 
-            <Text font="hind">
+            <Text font="body">
               We aim to equip students with the skills and knowledge needed to
               succeed in the rapidly evolving fields of data science, machine
               learning, and artificial intelligence.
@@ -86,7 +86,7 @@ export default function Home() {
         </div>
       </Section>
       {/*  For a section with primary colors */}
-      <Section title="Join Our Team" background="secondary" fullHeight>
+      <Section title="Join Our Team" background="primary" fullHeight>
         <div>Sign up form</div>
       </Section>
     </main>

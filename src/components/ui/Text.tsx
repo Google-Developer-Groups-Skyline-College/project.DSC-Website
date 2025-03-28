@@ -15,7 +15,7 @@ type TextVariant =
   | "muted";
 
 type TextWeight = "light" | "regular" | "medium" | "semibold" | "bold";
-type TextFont = "blanka" | "pippin" | "hind" | "mono";
+type TextFont = "title" | "heading" | "body";
 
 interface TextProps {
   children: ReactNode;
@@ -24,13 +24,14 @@ interface TextProps {
   font?: TextFont;
   className?: string;
   as?: React.ElementType;
+  style?: React.CSSProperties;
 }
 
 export function Text({
   children,
   size = "p",
   weight = "regular",
-  font = "pippin",
+  font = "body",
   className,
   as,
   ...props
@@ -47,7 +48,7 @@ export function Text({
     lead: "text-xl leading-7",
     large: "text-lg",
     small: "text-sm",
-    muted: "text-sm text-foreground/70",
+    muted: "text-sm text-text/70",
   };
 
   // Mapping weights to font-weight classes
@@ -61,10 +62,9 @@ export function Text({
 
   // Mapping fonts to font-family classes
   const fontStyles: Record<TextFont, string> = {
-    blanka: "font-title",
-    pippin: "font-primary",
-    hind: "font-secondary",
-    mono: "font-mono",
+    title: "font-title",
+    heading: "font-heading",
+    body: "font-body",
   };
 
   // Determine which HTML element to render
@@ -87,6 +87,7 @@ export function Text({
         fontStyles[font],
         className
       )}
+      style={props.style}
       {...props}
     >
       {children}

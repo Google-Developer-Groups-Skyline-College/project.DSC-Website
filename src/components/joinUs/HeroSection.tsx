@@ -19,8 +19,8 @@ export default function Hero() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
-  const line1 = "Sed ut perspiciatis unde omnis iste natus error";
-  const line2 = "sit voluptatem accusantium doloremque laudantium.";
+  const line1 = "TIME: Friday 12:10 p.m. - 1:00 p.m.";
+  const line2 = "LOCATION: STEM Center Room 7-324";
 
   // Animation variants for staggered children
   const container = {
@@ -46,21 +46,24 @@ export default function Hero() {
   return (
     <Section
       fullHeight
-      className="overflow-hidden flex flex-col justify-center items-center bg-muted"
+      className="overflow-hidden flex flex-col justify-center items-center"
+      background="background"
     >
-      <div className="absolute inset-0 ">
+      <div className="absolute inset-0">
         <div className="h-full w-full grid grid-cols-[repeat(20,1fr)] grid-rows-[repeat(20,1fr)]">
           {Array.from({ length: 20 }).map((_, rowIndex) =>
             Array.from({ length: 20 }).map((_, colIndex) => (
               <div
                 key={`${rowIndex}-${colIndex}`}
                 className={cn(
-                  "border border-black/5 flex items-center justify-center",
-                  (rowIndex + colIndex) % 7 === 0 ? "bg-black/5" : ""
+                  "border dark:border-white/10 border-black/10 flex items-center justify-center",
+                  (rowIndex + colIndex) % 7 === 0
+                    ? "dark:bg-white/10 bg-black/10"
+                    : ""
                 )}
               >
                 {(rowIndex + colIndex) % 15 === 0 && (
-                  <div className="w-1 h-1 bg-black/20 rounded-full" />
+                  <div className="w-1 h-1 dark:bg-white/30 bg-black/30 rounded-full" />
                 )}
               </div>
             ))
@@ -119,7 +122,7 @@ export default function Hero() {
                 animate={isInView ? { y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
-                {line1}
+                <b>{line1}</b>
               </motion.div>
             </div>
             <div className="overflow-hidden">
@@ -128,7 +131,7 @@ export default function Hero() {
                 animate={isInView ? { y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
-                {line2}
+                <b>{line2}</b>
               </motion.div>
             </div>
           </div>
@@ -168,7 +171,7 @@ export default function Hero() {
           SCROLL
         </motion.span>
         <motion.div
-          className="h-16 w-px bg-foreground "
+          className="h-16 w-px bg-text "
           initial={{ scaleY: 0, opacity: 0 }}
           animate={isScrollIndicatorInView ? { scaleY: 1, opacity: 1 } : {}}
           transition={{ duration: 0.6, ease: "easeOut", delay: 2.2 }}

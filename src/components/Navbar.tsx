@@ -81,7 +81,7 @@ const Navbar = ({ progress }: NavbarProps) => {
 
   return (
     <div className="relative h-16">
-      <nav className="bg-background fixed w-full z-10 border-b border-border transition-colors duration-300 h-16">
+      <nav className="bg-background fixed w-full z-10 border-border transition-colors duration-300 h-16">
         <div className="max-w-full mx-auto px-6 h-full">
           <div className="flex justify-between items-center h-full">
             {/* Logo/ClubName */}
@@ -92,10 +92,19 @@ const Navbar = ({ progress }: NavbarProps) => {
                   alt="DSC Logo"
                   width={60}
                   height={60}
+                  style={{ height: "auto" }}
                   className="mr-2"
                 />
                 <span className="hidden md:inline-block">
-                  <Text size="h4" font="blanka" className="py-2.5">
+                  <Text
+                    size="h4"
+                    font="title"
+                    className="py-2.5 transform transition-all duration-200 ease-out hover:text-primary hover:scale-105"
+                    style={{
+                      transition:
+                        "transform 200ms ease-out, color 50ms ease-out",
+                    }}
+                  >
                     Data Science Club
                   </Text>
                 </span>
@@ -109,7 +118,7 @@ const Navbar = ({ progress }: NavbarProps) => {
               {/* Hamburger Button */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-10 h-10 flex items-center justify-center rounded-md bg-muted hover:bg-accent focus:outline-none transition-colors duration-300"
+                className="w-10 h-10 flex items-center justify-center rounded-md bg-secondary hover:bg-accent focus:outline-none transition-colors duration-300"
               >
                 {/* Hamburger Icon */}
                 <motion.svg
@@ -136,11 +145,12 @@ const Navbar = ({ progress }: NavbarProps) => {
 
             {/* Normal Desktop Navigation Links */}
             <div className="hidden lg:flex items-center">
-              <div className="flex items-baseline space-x-5 text-foreground rounded-md text-lg font-medium transition-colors duration-100">
+              <div className="flex items-baseline space-x-5 text-foreground rounded-md text-lg font-medium transition-colors duration-100 font-[Blanka] tracking-widest">
                 {[
                   { href: "/", text: "Home" },
                   { href: "/about", text: "About Us" },
                   { href: "/projects", text: "Data Projects" },
+                  { href: "/meet", text: "Meet The Team" },
                   { href: "/join", text: "Join Us" },
                 ].map((link) => (
                   <Link
@@ -152,7 +162,7 @@ const Navbar = ({ progress }: NavbarProps) => {
                     }}
                   >
                     <Text
-                      font="pippin"
+                      font="title"
                       size="h5"
                       weight="semibold"
                       className="hover:text-primary transition-colors duration-50"
@@ -175,7 +185,7 @@ const Navbar = ({ progress }: NavbarProps) => {
                   animate="open"
                   exit="closed"
                   variants={menuVariants}
-                  className="lg:hidden fixed top-16 left-0 right-0 w-full z-10 bg-background bg-opacity-50 backdrop-blur-lg shadow-md overflow-hidden transition-colors duration-300"
+                  className="lg:hidden fixed top-16 left-0 right-0 w-full z-10 bg-background bg-opacity-50 backdrop-blur-lg shadow-md overflow-hidden transition-colors duration-300 font-[Blanka] tracking-widest"
                 >
                   <motion.div
                     variants={staggerChildren}
@@ -185,12 +195,13 @@ const Navbar = ({ progress }: NavbarProps) => {
                       { href: "/", text: "Home" },
                       { href: "/about", text: "About Us" },
                       { href: "/projects", text: "Data Projects" },
+                      { href: "/meet", text: "Meet The Team" },
                       { href: "/join", text: "Join Us" },
                     ].map((link) => (
                       <motion.div key={link.href} variants={linkVariants}>
                         <Link
                           href={link.href}
-                          className="block text-foreground hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 active:bg-accent"
+                          className="block text-text hover:text-text px-3 py-2 rounded-md text-sm font-medium transition-all duration-200 active:bg-accent"
                         >
                           {link.text}
                         </Link>
@@ -205,20 +216,20 @@ const Navbar = ({ progress }: NavbarProps) => {
 
         {/* Integrated Progress Bar - Only render if progress is provided */}
         {progress && (
-          <motion.div className="absolute bottom-0 left-0 w-full h-1 bg-gray-800">
+          <motion.div className="absolute bottom-0 left-0 w-full h-1 bg-background">
             <motion.div
               className="h-full bg-primary relative origin-left"
               style={{ scaleX: progress }}
             >
               <motion.div
-                className="absolute right-0 top-0 h-full w-8 bg-blue-400"
+                className="absolute right-0 top-0 h-full w-8 bg-secondary"
                 style={{
                   filter: "blur(8px)",
                   opacity: useTransform(progress, [0, 0.9, 1], [0.5, 0.8, 1]),
                 }}
               />
               <motion.div
-                className="absolute right-0 top-0 h-full w-4 bg-blue-300"
+                className="absolute right-0 top-0 h-full w-4 bg-secondary"
                 style={{
                   filter: "blur(12px)",
                   opacity: useTransform(progress, [0, 0.9, 1], [0.3, 0.6, 1]),

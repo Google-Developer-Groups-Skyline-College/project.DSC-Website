@@ -16,7 +16,7 @@ export function BlocksBackground({
   children,
   className,
   blockSize = 50,
-  numLines = 5,
+  numLines = 20,
   lineLength = 8,
   lineMoveDelay = 100,
   ...props
@@ -88,13 +88,12 @@ export function BlocksBackground({
         const block = document.createElement("div");
         block.classList.add("block");
         block.dataset.index = i.toString();
-        block.addEventListener("mouseover", highlightRandomNeighbors);
         blockContainer.appendChild(block);
       }
     }
 
-    function highlightRandomNeighbors(this: HTMLElement) {
-      const index = parseInt(this.dataset.index || "0");
+    // Changed this function to accept an index parameter instead of using 'this'
+    function highlightRandomNeighbors(index: number) {
       const col = index % numCols;
       const row = Math.floor(index / numCols);
 
@@ -116,8 +115,11 @@ export function BlocksBackground({
         }
       }
 
-      this.classList.add("highlight");
-      setTimeout(() => this.classList.remove("highlight"), 800);
+      const block = blockContainer.children[index] as HTMLElement;
+      if (block) {
+        block.classList.add("highlight");
+        setTimeout(() => block.classList.remove("highlight"), 800);
+      }
 
       if (neighbors.length > 0) {
         const neighborIndex =
@@ -128,6 +130,13 @@ export function BlocksBackground({
           setTimeout(() => neighbor.classList.remove("highlight"), 800);
         }
       }
+    }
+
+    // Added a new function for random highlights
+    function triggerRandomHighlights() {
+      // Choose a random block to highlight
+      const randomIndex = Math.floor(Math.random() * numBlocks);
+      highlightRandomNeighbors(randomIndex);
     }
 
     function initializeLines() {
@@ -353,10 +362,14 @@ export function BlocksBackground({
     }
 
     createBlocks();
-    const interval = initializeLines();
+    const linesInterval = initializeLines();
+
+    // Add random highlights at intervals
+    const highlightsInterval = setInterval(triggerRandomHighlights, 2000);
 
     return () => {
-      clearInterval(interval);
+      clearInterval(linesInterval);
+      clearInterval(highlightsInterval);
       const style = document.getElementById(styleId);
       if (style) document.head.removeChild(style);
     };

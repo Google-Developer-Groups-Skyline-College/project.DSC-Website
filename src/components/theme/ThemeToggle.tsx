@@ -30,6 +30,10 @@ const AnimatedIcon = ({ children }: { children: React.ReactNode }) => (
     animate="animate"
     exit="exit"
     style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+    whileHover={{
+      scale: 1.4,
+      transition: { duration: 0.3 },
+    }}
   >
     {children}
   </motion.div>
@@ -43,7 +47,7 @@ export const ThemeToggle: React.FC = () => {
     <button
       onClick={toggleTheme}
       aria-label={`Switch to ${mode === "light" ? "dark" : "light"} mode`}
-      className="p-2 rounded-full bg-muted border border-border hover:bg-accent/50 flex items-center justify-center w-10 h-10 relative"
+      className="p-2 rounded-full bg-accent border border-border flex items-center justify-center w-10 h-10 relative"
     >
       <AnimatePresence mode="wait" initial={false}>
         {mode === "light" ? (

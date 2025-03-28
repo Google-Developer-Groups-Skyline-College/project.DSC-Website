@@ -1,10 +1,11 @@
+@import url("https://api.fontshare.com/v2/css?f[]=hind@300,400,500,600,700,1&f[]=poppins@100,101,200,201,300,301,400,401,500,501,600,601,700,701,800,801,900,901,1,2&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* Fonts For Use */
-@import url("https://api.fontshare.com/v2/css?f[]=hind@300,400,500,600,700,1&f[]=poppins@100,101,200,201,300,301,400,401,500,501,600,601,700,701,800,801,900,901,1,2&display=swap");
-
 @font-face {
   font-family: "Blanka";
   src: url("/fonts/Blanka-Regular.woff") format("woff");
@@ -12,6 +13,7 @@
   font-style: normal;
   font-display: swap;
 }
+
 /* Fonts For Use */
 
 /* Make scrollbar invisible for the whole web app */
@@ -25,29 +27,24 @@
 
 :root {
   color-scheme: light;
-  /* Light theme default variables */
-  --background: hsl(105 19% 85%);
-  --foreground: hsl(83 15% 31%);
-  --primary: hsl(83 15% 59%);
-  --secondary: hsl(83 15% 73%);
-  --muted: hsl(81 15% 92%);
-  --accent: hsl(81 15% 92%);
-  --border: hsl(83 15% 73%);
+  --text: #0d1405;
+  --background: #f1faea;
+  --primary: #77bc01;
+  --secondary: #28eb46;
+  --accent: #62d08c;
 }
 
 .dark {
-  --background: hsl(83 50% 14%);
-  --foreground: hsl(81 15% 92%);
-  --primary: hsl(83 15% 59%);
-  --secondary: hsl(83 35% 26%);
-  --muted: hsl(83 35% 26%);
-  --accent: hsl(83 35% 26%);
-  --border: hsl(83 35% 26%);
+  --text: #f3faeb;
+  --background: #0c1505;
+  --primary: #bafe43;
+  --secondary: #14d731;
+  --accent: #2f9d59;
 }
 
 body {
   background-color: var(--background);
-  color: var(--foreground);
+  color: var(--text);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
