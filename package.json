@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "framer-motion": "^12.4.7",
+    "framer-motion": "^12.6.2",
     "gsap": "^3.12.7",
     "lenis": "^1.2.3",
     "lucide-react": "^0.482.0",
